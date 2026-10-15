@@ -1,0 +1,192 @@
+[
+  {
+    "timestamp": "2026-10-15 08:43",
+    "prediction": 7328.0,
+    "inputs": {
+      "symboling": 31.0,
+      "wheel-base": 29.0,
+      "length": 114.0,
+      "width": 54.0,
+      "height": 11.0,
+      "curb-weight": 38.0,
+      "num-of-cylinders": 20.0,
+      "engine-size": 52.0,
+      "compression-ratio": 7.0,
+      "horsepower": 23.0,
+      "peak-rpm": 16.0,
+      "city-mpg": 26.0,
+      "highway-mpg": 36.0
+    }
+  },
+  {
+    "timestamp": "2026-10-15 08:43",
+    "prediction": 7328.0,
+    "inputs": {
+      "symboling": 31.0,
+      "wheel-base": 29.0,
+      "length": 114.0,
+      "width": 35.0,
+      "height": 11.0,
+      "curb-weight": 98.0,
+      "num-of-cylinders": 20.0,
+      "engine-size": 52.0,
+      "compression-ratio": 7.0,
+      "horsepower": 23.0,
+      "peak-rpm": 16.0,
+      "city-mpg": 26.0,
+      "highway-mpg": 36.0
+    }
+  },
+  {
+    "timestamp": "2026-10-15 08:40",
+    "prediction": 6249.0,
+    "inputs": {
+      "symboling": 56.0,
+      "wheel-base": 41.0,
+      "length": 38.0,
+      "width": 61.0,
+      "height": 96.0,
+      "curb-weight": 53.0,
+      "num-of-cylinders": 8.0,
+      "engine-size": 47.0,
+      "compression-ratio": 31.0,
+      "horsepower": -8.0,
+      "peak-rpm": 20.0,
+      "city-mpg": 80.0,
+      "highway-mpg": 42.0
+    }
+  },
+  {
+    "timestamp": "2026-10-15 08:40",
+    "prediction": 6249.0,
+    "inputs": {
+      "symboling": 56.0,
+      "wheel-base": 41.0,
+      "length": 38.0,
+      "width": 61.0,
+      "height": 96.0,
+      "curb-weight": 53.0,
+      "num-of-cylinders": 8.0,
+      "engine-size": 47.0,
+      "compression-ratio": 13.0,
+      "horsepower": 42.0,
+      "peak-rpm": 20.0,
+      "city-mpg": 80.0,
+      "highway-mpg": 42.0
+    }
+  },
+  {
+    "timestamp": "2026-10-15 08:40",
+    "prediction": 6249.0,
+    "inputs": {
+      "symboling": 12.0,
+      "wheel-base": 41.0,
+      "length": 38.0,
+      "width": 33.0,
+      "height": 96.0,
+      "curb-weight": 18.0,
+      "num-of-cylinders": 8.0,
+      "engine-size": 47.0,
+      "compression-ratio": 13.0,
+      "horsepower": 42.0,
+      "peak-rpm": 20.0,
+      "city-mpg": 80.0,
+      "highway-mpg": 42.0
+    }
+  },
+  {
+    "timestamp": "2026-10-15 08:40",
+    "prediction": 6249.0,
+    "inputs": {
+      "symboling": 12.0,
+      "wheel-base": 16.0,
+      "length": 38.0,
+      "width": 33.0,
+      "height": 96.0,
+      "curb-weight": 18.0,
+      "num-of-cylinders": 8.0,
+      "engine-size": 47.0,
+      "compression-ratio": 13.0,
+      "horsepower": 42.0,
+      "peak-rpm": 20.0,
+      "city-mpg": 80.0,
+      "highway-mpg": 42.0
+    }
+  },
+  {
+    "timestamp": "2026-10-15 08:36",
+    "prediction": 8642.5,
+    "inputs": {
+      "symboling": 78.0,
+      "wheel-base": 65.0,
+      "length": 15.0,
+      "width": 568.0,
+      "height": 81.0,
+      "curb-weight": 86.0,
+      "num-of-cylinders": 63.0,
+      "engine-size": 91.0,
+      "compression-ratio": 39.0,
+      "horsepower": 90.0,
+      "peak-rpm": 55.0,
+      "city-mpg": 152.0,
+      "highway-mpg": 61.0
+    }
+  },
+  {
+    "timestamp": "2026-10-15 08:36",
+    "prediction": 8642.5,
+    "inputs": {
+      "symboling": 78.0,
+      "wheel-base": 65.0,
+      "length": 15.0,
+      "width": 568.0,
+      "height": 40.0,
+      "curb-weight": 86.0,
+      "num-of-cylinders": 5.0,
+      "engine-size": 66.0,
+      "compression-ratio": 39.0,
+      "horsepower": 49.0,
+      "peak-rpm": 55.0,
+      "city-mpg": 152.0,
+      "highway-mpg": 61.0
+    }
+  },
+  {
+    "timestamp": "2026-10-15 08:36",
+    "prediction": 8642.5,
+    "inputs": {
+      "symboling": -15.0,
+      "wheel-base": 10.0,
+      "length": 15.0,
+      "width": 568.0,
+      "height": 40.0,
+      "curb-weight": 86.0,
+      "num-of-cylinders": 5.0,
+      "engine-size": 66.0,
+      "compression-ratio": 39.0,
+      "horsepower": 49.0,
+      "peak-rpm": 55.0,
+      "city-mpg": 152.0,
+      "highway-mpg": 61.0
+    }
+  },
+  {
+    "timestamp": "2026-10-15 08:36",
+    "prediction": 8642.5,
+    "inputs": {
+      "symboling": -15.0,
+      "wheel-base": 10.0,
+      "length": 15.0,
+      "width": 568.0,
+      "height": 40.0,
+      "curb-weight": 86.0,
+      "num-of-cylinders": 5.0,
+      "engine-size": 66.0,
+      "compression-ratio": 39.0,
+      "horsepower": 49.0,
+      "peak-rpm": 55.0,
+      "city-mpg": 152.0,
+      "highway-mpg": 61.0
+    }
+  }
+]
