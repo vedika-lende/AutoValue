@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoValue | Automobile Price Prediction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="{{ url_for('index') }}">
+      <span class="brand-mark">A</span>
+      <span><strong class="brand-name">AutoValue</strong><small>AUTOMOBILE PRICE PREDICTION</small></span>
+    </a>
+    <div class="nav-label">WORKSPACE</div>
+    <a class="nav-link active" href="#overview"><span>▦</span> Overview</a>
+    <a class="nav-link" href="#predict"><span>⌁</span> Price prediction</a>
+    <a class="nav-link" href="#analytics"><span>▥</span> Feature analysis</a>
+    <a class="nav-link" href="#history"><span>◷</span> Prediction history</a>
+    <div class="sidebar-bottom">
+      <div class="model-status"><span class="status-dot"></span><div><strong>Model loaded</strong><small>{{ model_name }}</small></div></div>
+      <p>Automobile valuation<br>powered by machine learning.</p>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+      <div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div>
+      <div class="topbar-right"><span class="live-dot"></span><span>Prediction engine ready</span><div class="avatar">AV</div></div>
+    </header>
+
+    <section class="page-heading" id="overview">
+      <div>
+        <div class="eyebrow"><span class="eyebrow-line"></span> AUTOMOTIVE PRICE PREDICTION</div>
+        <h1>Automobile Price Prediction</h1>
+        <p>A clear, data-led way to estimate automobile prices with your trained machine learning model.</p>
+      </div>
+      <a class="outline-button" href="#predict">＋ New prediction <span>↗</span></a>
+    </section>
+
+    <section class="stat-grid">
+      <article class="stat-card">
+        <div class="stat-top"><span>MODEL STATUS</span><span class="stat-icon cyan">⌘</span></div>
+        <div class="stat-value"><span class="status-dot"></span> Active</div>
+        <div class="stat-foot">Your saved model is loaded</div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-top"><span>INPUT FEATURES</span><span class="stat-icon blue">▤</span></div>
+        <div class="stat-value">{{ feature_count }} <small>features</small></div>
+        <div class="stat-foot">Numerical vehicle attributes</div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-top"><span>RECENT PREDICTIONS</span><span class="stat-icon purple">↗</span></div>
+        <div class="stat-value">{{ history|length }} <small>saved locally</small></div>
+        <div class="stat-foot">Latest predictions on this device</div>
+      </article>
+    </section>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for category, message in messages %}
+        <div class="notice {{ category }}">{{ message }}</div>
+      {% endfor %}{% endif %}
+    {% endwith %}
+
+    <section class="workspace-grid" id="predict">
+      <article class="panel input-panel">
+        <div class="panel-heading">
+          <div><div class="section-kicker">PREDICTION WORKSPACE</div><h2>Vehicle specifications</h2><p>Enter the vehicle attributes below to estimate its price.</p></div>
+          <span class="step-badge">01 / INPUT</span>
+        </div>
+        {% if error %}<div class="error-message">⚠ {{ error }}</div>{% endif %}
+        <form method="POST" action="{{ url_for('index') }}" id="predictionForm">
+          <div class="form-grid">
+            {% for field in fields %}
+            <div class="form-field">
+              <label for="{{ field.name }}">{{ field.label }}</label>
+              <input type="number" step="any" id="{{ field.name }}" name="{{ field.name }}"
+                     value="{{ field.value }}" placeholder="Enter value" required>
+              <small>{{ field.help }}</small>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="form-actions">
+            <p><span class="required-star">*</span> All fields are required. Use the same encoding and units as training.</p>
+            <button class="primary-button" type="submit">Generate valuation <span>↗</span></button>
+          </div>
+        </form>
+      </article>
+
+      <aside class="result-column">
+        <article class="prediction-card {% if prediction is not none %}has-result{% endif %}">
+          <div class="prediction-card-top"><span class="result-symbol">✳</span><span class="result-label">ESTIMATED VALUE</span><span class="sparkle">✦</span></div>
+          {% if prediction is not none %}
+            <div class="price-value">{{ "{:,.2f}".format(prediction) }}</div>
+            <div class="price-caption">Model-generated estimate · target currency/units</div>
+            <div class="result-divider"></div>
+            <div class="result-meta"><span>Prediction status</span><strong class="success-text">● Complete</strong></div>
+            <div class="result-meta"><span>Algorithm</span><strong>Decision Tree</strong></div>
+          {% else %}
+            <div class="price-placeholder">— — —</div>
+            <div class="price-caption">Your predicted price will appear here</div>
+            <div class="result-divider"></div>
+            <div class="empty-result"><div class="empty-icon">↗</div><strong>Ready when you are</strong><p>Complete the vehicle form and generate a valuation to see your result.</p></div>
+          {% endif %}
+          <div class="card-decoration"></div>
+        </article>
+
+        <article class="panel tip-panel">
+          <div class="tip-icon">✦</div>
+          <div><h3>For a better estimate</h3><p>Use realistic values and the exact numeric encoding from the dataset used to train your model.</p></div>
+        </article>
+        <article class="model-info">
+          <div class="model-info-icon">⌘</div><div><strong>Decision Tree Regressor</strong><p>Loaded from your local PKL artifact</p></div><span class="status-dot"></span>
+        </article>
+      </aside>
+    </section>
+
+    <section class="lower-grid" id="analytics">
+      <article class="panel chart-panel">
+        <div class="panel-heading compact"><div><div class="section-kicker">MODEL INTERPRETABILITY</div><h2>Top feature importance</h2><p>Relative importance reported by the trained model.</p></div><span class="mini-tag">TOP {{ importance|length }}</span></div>
+        {% if importance %}
+          <div class="importance-chart-wrap"><canvas id="importanceChart" aria-label="Feature importance chart"></canvas></div>
+          <div class="chart-footnote">Importance scores describe how the fitted tree uses features; they do not prove causation.</div>
+        {% else %}
+          <div class="no-data">Feature importance is not available for this model.</div>
+        {% endif %}
+      </article>
+
+      <article class="panel history-panel" id="history">
+        <div class="panel-heading compact"><div><div class="section-kicker">RECENT ACTIVITY</div><h2>Prediction history</h2><p>Your latest local predictions.</p></div>
+          {% if history %}<form method="POST" action="{{ url_for('clear_history') }}" onsubmit="return confirm('Clear all prediction history?')"><button class="text-button" type="submit">Clear history</button></form>{% endif %}
+        </div>
+        {% if history %}
+          <div class="history-list">
+            {% for item in history %}
+              <div class="history-row"><div class="history-icon">↗</div><div class="history-details"><strong>Automobile valuation</strong><small>{{ item.timestamp }}</small></div><div class="history-price">{{ "{:,.2f}".format(item.prediction) }}</div></div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="history-empty"><div>◷</div><strong>No predictions yet</strong><p>Your completed estimates will appear here.</p></div>
+        {% endif %}
+      </article>
+    </section>
+
+    <footer class="footer"><span>© Smart Automotive Analytics · Automobile price prediction</span><span>Decision Tree Regression <i></i> Flask application</span></footer>
+  </main>
+
+  <script>
+    const featureLabels = {{ importance|map(attribute='label')|list|tojson }};
+    const featureValues = {{ importance|map(attribute='value')|list|tojson }};
+    if (document.getElementById("importanceChart") && featureLabels.length) {
+      new Chart(document.getElementById("importanceChart"), {
+        type: "bar",
+        data: {
+          labels: featureLabels,
+          datasets: [{
+            data: featureValues,
+            backgroundColor: "#25d5d0",
+            hoverBackgroundColor: "#57e7df",
+            borderRadius: 5,
+            borderSkipped: false,
+            barThickness: 13
+          }]
+        },
+        options: {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toFixed(2)}%` } } },
+          scales: {
+            x: { beginAtZero: true, grid: { color: "rgba(148,163,184,.12)" }, ticks: { color: "#8794aa", callback: value => value + "%" }, border: { display: false } },
+            y: { grid: { display: false }, ticks: { color: "#b7c3d5", font: { size: 11 } }, border: { display: false } }
+          }
+        }
+      });
+    }
+
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+    menuToggle?.addEventListener("click", () => sidebar.classList.toggle("open"));
+    document.querySelectorAll(".nav-link").forEach(link => {
+      link.addEventListener("click", () => sidebar.classList.remove("open"));
+    });
+    document.getElementById("predictionForm")?.addEventListener("submit", () => {
+      const button = document.querySelector(".primary-button");
+      if (button) { button.disabled = true; button.innerHTML = "Calculating… <span>↗</span>"; }
+    });
+  </script>
+</body>
+</html>
